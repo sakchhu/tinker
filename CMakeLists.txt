@@ -21,7 +21,18 @@ FetchContent_Declare(cx
 FetchContent_MakeAvailable(cx)
 
 function(add_snippet_target TARGET)
-	add_executable(${TARGET} src/${TARGET}.cpp)
+	add_executable(${TARGET})
+
+    target_sources(
+        ${TARGET}
+        PRIVATE
+            src/${TARGET}.cpp
+        PRIVATE 
+        FILE_SET HEADERS
+        BASE_DIRS
+            ${CMAKE_CURRENT_SOURCE_DIR}/include
+    )
+    
 	set_target_properties(
 		${TARGET}
 		PROPERTIES
@@ -37,5 +48,7 @@ endfunction()
 
 add_snippet_target(tds)
 add_snippet_target(tdc)
+add_snippet_target(async_daytime)
+add_snippet_target(async_echo)
 
 add_subdirectory(src)
